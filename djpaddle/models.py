@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
 from django.conf import settings as djsettings
@@ -209,7 +209,8 @@ class Subscription(PaddleBaseModel):
         except cls.DoesNotExist:
             return cls.objects.create(pk=pk, **data)
 
-        if subscription.event_time < data["event_time"]:
+        # TODO. Fix this properly. Taken from here: https://github.com/paddle-python/dj-paddle/issues/39#issuecomment-1281979509
+        if subscription.event_time < (data["event_time"] + timedelta(seconds=5)):
             cls.objects.filter(pk=pk).update(**data)
 
     def __str__(self):
