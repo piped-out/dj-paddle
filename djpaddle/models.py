@@ -152,6 +152,7 @@ class Subscription(PaddleBaseModel):
     currency = models.CharField(max_length=3)
     email = models.EmailField()
     event_time = models.DateTimeField()
+    cancellation_effective_date = models.DateTimeField(null=True, blank=True)
     marketing_consent = models.BooleanField()
     next_bill_date = models.DateTimeField()
     passthrough = models.TextField()
