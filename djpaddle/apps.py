@@ -7,3 +7,4 @@ class DjpaddleConfig(AppConfig):
     """
 
     name = "djpaddle"
+    default_auto_field = 'django.db.models.AutoField'
