@@ -156,6 +156,7 @@ class Subscription(PaddleBaseModel):
     marketing_consent = models.BooleanField()
     next_bill_date = models.DateTimeField()
     passthrough = models.TextField()
+    custom_data = models.JSONField(null=True, blank=True)
     quantity = models.IntegerField()
     source = models.URLField()
     status = models.CharField(choices=STATUS_CHOICES, max_length=16)
