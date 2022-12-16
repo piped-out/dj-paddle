@@ -1,4 +1,5 @@
 import logging
+import json
 from datetime import datetime, timedelta
 
 from django.db import models
@@ -171,6 +172,14 @@ class Subscription(PaddleBaseModel):
     def _sanitize_webhook_payload(cls, payload):
         data = {}
         data["id"] = payload.pop("subscription_id")
+
+        try:
+            data["custom_data"] = json.loads(payload.pop("custom_data", {}))
+        except json.JSONDecodeError:
+            # TODO: perhaps this can be handled more graceufully somehow?
+            warning = "Unable to decode 'custom_data' from 'payload'. Setting to empty object."
+            log.warning(warning)
+            data["custom_data"] = {}
 
         Subscriber = settings.get_subscriber_model()
         try:
