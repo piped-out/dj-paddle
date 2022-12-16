@@ -12,6 +12,7 @@ function checkoutComplete(data) {
         id: data.checkout.id,
         completed: data.checkout.completed,
         passthrough: data.checkout.passthrough,
+        custom_data: data.checkout.custom_data,
         email: email,
         created_at: data.checkout.created_at,
         redirect_url: data.checkout.redirect_url,
